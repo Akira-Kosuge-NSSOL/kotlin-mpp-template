@@ -3,6 +3,22 @@ apply plugin: 'kotlinx-serialization'
 
 kotlin {
     targets {
+        // 対象プラットフォーム種別ごとにプリセットを記述
+        // ここではiOS/AndroidというMobileプラットフォームでの区別ではなくjvm/arm64等の底レイヤレベルの区分で考える
+        //
+        // 例えばセンサーの値をとるようなコードをcommonプロジェクト内に入れるとなると
+        // このプロジェクトからAndroidSDKを参照する必要があるが、
+        // 現状ではbuild.gradleへの記述方法も未だ整理されていなそうな節がある。(kotlin-gradle-plugin:1.3.10)
+        // iosのUIKitを扱うための中間ライブラリなど提供されていはいるが、
+        // これらやAndroidSDKをcommonプロジェクト内で扱うと乱雑になりそうなので乱用は控える
+        //
+        // commonプロジェクト内には
+        // ・共有可能なビジネスロジック、Utility
+        // ・プラットフォームに依存しないRepository(WebApi接続)
+        // ・Viewを含まないプレゼンテーション層
+        // なり極力プラットフォーム依存しないもの、インターフェース定義までを格納するのが現在のベストプラクティス(kotlin-confアプリが参考)
+
+        // JVM(Androidから参照)
         fromPreset(presets.jvm, 'jvm')
 
         // Change to `presets.iosArm64` to deploy the app to iPhone
@@ -57,22 +73,22 @@ kotlin {
     }
 }
 
-task packForXCode(type: Sync) {
-    final File frameworkDir = new File(buildDir, "xcode-frameworks")
-    final String mode = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
-
-    inputs.property "mode", mode
-    dependsOn kotlin.targets.ios.compilations.main.linkTaskName("FRAMEWORK", mode)
-
-    from { kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", mode).parentFile }
-    into frameworkDir
-
-    doLast {
-        new File(frameworkDir, 'gradlew').with {
-            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
-            setExecutable(true)
-        }
-    }
-}
-
-tasks.build.dependsOn packForXCode
+//task packForXCode(type: Sync) {
+//    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+//    final String mode = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
+//
+//    inputs.property "mode", mode
+//    dependsOn kotlin.targets.ios.compilations.main.linkTaskName("FRAMEWORK", mode)
+//
+//    from { kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", mode).parentFile }
+//    into frameworkDir
+//
+//    doLast {
+//        new File(frameworkDir, 'gradlew').with {
+//            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+//            setExecutable(true)
+//        }
+//    }
+//}
+//
+//tasks.build.dependsOn packForXCode

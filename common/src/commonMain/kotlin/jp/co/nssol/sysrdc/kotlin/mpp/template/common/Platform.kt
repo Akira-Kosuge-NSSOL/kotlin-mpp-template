@@ -22,7 +22,6 @@ fun createApplicationScreenMessage(): String {
 // JavaのInterfaceっぽくなる
 // ・expect側はクラスに対してのみexpectキーワードをつけ、メソッド本文なし
 // ・actual側はメソッドにもactualキーワードがいる
-// メソッド
 expect class Platform() {
     fun name(): String
 }
