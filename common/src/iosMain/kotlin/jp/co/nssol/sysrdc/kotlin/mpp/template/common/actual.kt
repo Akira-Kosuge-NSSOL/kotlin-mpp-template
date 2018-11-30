@@ -1,4 +1,4 @@
-package jp.co.nssol.sysrdc.kotlin.native.common
+package jp.co.nssol.sysrdc.kotlin.mpp.template.common
 
 import platform.UIKit.UIDevice
 
