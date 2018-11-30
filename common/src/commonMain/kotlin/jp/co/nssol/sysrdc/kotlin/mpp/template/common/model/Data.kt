@@ -1,4 +1,4 @@
-package jp.co.nssol.sysrdc.kotlin.mpp.template.common
+package jp.co.nssol.sysrdc.kotlin.mpp.template.common.model
 
 import kotlinx.serialization.*
 
