@@ -8,6 +8,7 @@
 
 import UIKit
 import common
+import common_client
 
 class ViewController: UIViewController {
 
@@ -28,6 +29,8 @@ class ViewController: UIViewController {
         label2.font = label.font.withSize(16)
         label2.text = Platform().name()
         view.addSubview(label2)
+        
+        var data = PlatformClientImplKt.getData();
     }
 }
 

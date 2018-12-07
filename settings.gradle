@@ -4,6 +4,8 @@ enableFeaturePreview('GRADLE_METADATA')
 
 include 'backend'
 include 'common'
+include 'common-server'
+include 'common-client'
 
 if (INCLUDE_ANDROID == "true") {
     include 'android'
