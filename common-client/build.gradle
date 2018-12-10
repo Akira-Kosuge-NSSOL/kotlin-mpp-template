@@ -25,6 +25,8 @@ kotlin {
         fromPreset(presets.iosX64, 'ios') {
             compilations.main.outputKinds('FRAMEWORK')
         }
+
+        fromPreset(presets.js, 'js')
     }
     sourceSets {
         commonMain {
@@ -58,6 +60,13 @@ kotlin {
                 implementation "io.ktor:ktor-client-ios:$ktor_version"
                 implementation "io.ktor:ktor-client-core-ios:$ktor_version"
                 implementation "io.ktor:ktor-client-json-ios:$ktor_version"
+            }
+        }
+        jsMain {
+            dependencies {
+                implementation project(":common")
+                implementation "io.ktor:ktor-client-js:$ktor_version"
+                implementation "io.ktor:ktor-client-json-js:$ktor_version"
             }
         }
     }

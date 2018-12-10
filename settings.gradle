@@ -2,11 +2,15 @@ rootProject.name = 'kotlin-mpp-template'
 
 enableFeaturePreview('GRADLE_METADATA')
 
-include 'backend'
-include 'common'
-include 'common-server'
-include 'common-client'
 
+include 'common'
+
+include 'common-server'
+include 'web'
+
+
+include 'common-client'
+include 'backend'
 if (INCLUDE_ANDROID == "true") {
     include 'android'
 }
