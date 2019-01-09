@@ -1,4 +1,4 @@
-package jp.co.nssol.sysrdc.kotlin.mpp.template.common.domain
+package jp.co.nssol.sysrdc.kotlin.mpp.template.common.client.repository
 
 import io.ktor.client.HttpClient
 import io.ktor.client.features.ExpectSuccess

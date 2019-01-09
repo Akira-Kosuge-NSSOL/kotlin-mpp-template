@@ -14,6 +14,9 @@ import org.slf4j.event.Level
 
 
 fun main(args: Array<String>) {
+
+    var data = Data("asdf", 1234)
+    //var data2 = getServerData()
     embeddedServer(Netty, 10000) {
 
         // Serialize json
@@ -43,16 +46,12 @@ fun main(args: Array<String>) {
         // Routing
         install(Routing) {
             route("/crud") {
-                get { call.respond(Data("test", 1234)) }
+//                get { call.respond(getServerData()) }
                 put { call.respond("Put Hello") }
                 post { call.respond("Post Hello") }
                 delete { call.respond("Delete Hello") }
             }
         }
 
-
     }.start(wait = true)
-}
-
-class Test(val name: String) {
 }
